@@ -1,0 +1,55 @@
+<div class="content-section active">
+  <header class="content-header">
+    <h2>Job Presets</h2>
+    <p class="subtitle">Manage job role presets and evaluation criteria</p>
+    <div class="header-actions">
+      <button id="create-new-preset-btn" class="primary-button">Create New Preset</button>
+    </div>
+  </header>
+  
+  <div class="presets-table-container">
+    <table class="presets-table">
+      <thead>
+        <tr>
+          <th>Preset Name</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="presets-list">
+        <!-- Presets will be loaded here dynamically -->
+        <tr>
+          <td colspan="3" class="loading-cell">
+            <div class="loading-spinner" id="presets-loading">Loading presets...</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div id="preset-details-container" class="preset-details-container" style="display: none;">
+    <div id="preset-details" class="preset-details-panel">
+      <div class="panel-header">
+        <h3>Preset Details</h3>
+        <button id="close-details-btn" class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="panel-content">
+        <!-- Preset details will be loaded here -->
+      </div>
+    </div>
+  </div>
+  
+  <!-- Confirmation modal for delete -->
+  <div id="delete-modal" class="modal">
+    <div class="modal-content">
+      <h3>Confirm Deletion</h3>
+      <p>Are you sure you want to delete this preset? This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button id="cancel-delete-btn" class="secondary-button">Cancel</button>
+        <button id="confirm-delete-btn" class="danger-button">Delete</button>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -168,6 +168,21 @@ class Database {
     });
   }
 
+  // Delete a job preset
+  deleteJobPreset(presetId, callback) {
+    this.db.run(
+      'DELETE FROM job_presets WHERE id = ?',
+      [presetId],
+      function(err) {
+        if (err) {
+          console.error('Error deleting job preset:', err);
+          return callback(err);
+        }
+        callback(null, { success: true, rowsAffected: this.changes });
+      }
+    );
+  }
+
   // Close the database connection
   close() {
     this.db.close((err) => {

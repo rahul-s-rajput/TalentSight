@@ -57,6 +57,16 @@ function setupIpcHandlers() {
       });
     });
   });
+
+  // Delete job preset
+  ipcMain.handle('delete-job-preset', async (event, presetId) => {
+    return new Promise((resolve, reject) => {
+      db.deleteJobPreset(presetId, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+  });
 }
 
 app.on('window-all-closed', () => {
