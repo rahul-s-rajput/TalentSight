@@ -1,2 +1,4 @@
 dist/
 node_modules/
+backend/models--Systran--faster-whisper-large-v2
+backend/.locks
