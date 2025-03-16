@@ -1,10 +1,190 @@
-<div class="content-section active">
-  <header class="content-header">
-    <h2>Reports</h2>
-    <p class="subtitle">View analysis reports and insights</p>
-  </header>
-  
-  <div class="content-placeholder">
-    <p>Reports page content will be implemented in future updates.</p>
+<div class="dashboard-container">
+  <div class="header">
+      <h1>Candidate Evaluation Results</h1>
+      <div class="candidate-badge">STRONG CANDIDATE</div>
   </div>
-</div> 
+
+  <div class="candidate-details">
+      <div class="detail-item">
+          <span class="detail-label">Candidate Name:</span>
+          <span class="detail-value">Sarah Johnson</span>
+      </div>
+      <div class="detail-item">
+          <span class="detail-label">Position:</span>
+          <span class="detail-value">Senior Software Engineer</span>
+      </div>
+      <div class="detail-item">
+          <span class="detail-label">Interview Date:</span>
+          <span class="detail-value" id="interview-date"></span>
+      </div>
+  </div>
+
+  <div class="overall-score-section">
+      <div class="overall-score-label">Overall Evaluation Score</div>
+      <div class="overall-score-value" id="overall-score">7.7</div>
+      <div class="overall-score-desc">out of 10</div>
+  </div>
+
+  <div class="score-grid">
+      <div class="score-card">
+          <h2>
+              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              STAR Method Scores
+          </h2>
+          <div class="score-item">
+              <div class="score-label">Situation</div>
+              <div class="score-value">
+                  <span class="score-bar">
+                      <span class="score-bar-fill" id="situation-bar"></span>
+                  </span>
+                  <span id="situation-score">7.9/10</span>
+              </div>
+          </div>
+          <div class="score-item">
+              <div class="score-label">Task</div>
+              <div class="score-value">
+                  <span class="score-bar">
+                      <span class="score-bar-fill" id="task-bar"></span>
+                  </span>
+                  <span id="task-score">9.5/10</span>
+              </div>
+          </div>
+          <div class="score-item">
+              <div class="score-label">Action</div>
+              <div class="score-value">
+                  <span class="score-bar">
+                      <span class="score-bar-fill" id="action-bar"></span>
+                  </span>
+                  <span id="action-score">10/10</span>
+              </div>
+          </div>
+          <div class="score-item">
+              <div class="score-label">Result</div>
+              <div class="score-value">
+                  <span class="score-bar">
+                      <span class="score-bar-fill" id="result-bar"></span>
+                  </span>
+                  <span id="result-score">9.4/10</span>
+              </div>
+          </div>
+          <div class="average-score">
+              <div class="average-label">Average</div>
+              <div class="average-value" id="star-average">9.2/10</div>
+          </div>
+      </div>
+
+      <div class="score-card">
+          <h2>
+              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+              Three Cs Scores
+          </h2>
+          <div class="score-item">
+              <div class="score-label">Credibility</div>
+              <div class="score-value">
+                  <span class="score-bar">
+                      <span class="score-bar-fill" id="credibility-bar"></span>
+                  </span>
+                  <span id="credibility-score">3.8/10</span>
+              </div>
+          </div>
+          <div class="score-item">
+              <div class="score-label">Competence</div>
+              <div class="score-value">
+                  <span class="score-bar">
+                      <span class="score-bar-fill" id="competence-bar"></span>
+                  </span>
+                  <span id="competence-score">7.1/10</span>
+              </div>
+          </div>
+          <div class="score-item">
+              <div class="score-label">Confidence</div>
+              <div class="score-value">
+                  <span class="score-bar">
+                      <span class="score-bar-fill" id="confidence-bar"></span>
+                  </span>
+                  <span id="confidence-score">7.7/10</span>
+              </div>
+          </div>
+          <div class="average-score">
+              <div class="average-label">Average</div>
+              <div class="average-value" id="three-cs-average">6.2/10</div>
+          </div>
+      </div>
+  </div>
+
+  <div class="feedback-section">
+      <h2>Feedback Summary</h2>
+      <div class="feedback-content">
+          <h3>STAR Method Analysis</h3>
+          <div class="strengths">Strengths:</div>
+          <ul id="star-strengths"></ul>
+
+          <h3>Three Cs Analysis</h3>
+          <div class="strengths">Strengths:</div>
+          <ul id="three-cs-strengths"></ul>
+          
+          <div class="improvements">Areas for improvement:</div>
+          <ul id="three-cs-improvements"></ul>
+
+          <h3>Summary</h3>
+          <div id="summary"></div>
+      </div>
+  </div>
+
+  <div class="red-flags-section">
+      <h2>
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          Potential Red Flags
+      </h2>
+      <div class="red-flags-grid">
+          <div class="flag-card detected">
+              <div class="flag-header">
+                  <div class="flag-title">
+                      <svg class="flag-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#f44336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                      Reading From Screen
+                  </div>
+                  <span class="flag-status status-detected">DETECTED</span>
+              </div>
+              <div class="flag-description">
+                  Our AI detected patterns suggesting the candidate was reading prepared answers. Eye movements consistently shifted downward or to the side during responses.
+              </div>
+              <div class="flag-confidence">
+                  <span class="confidence-label">Confidence:</span>
+                  <span class="confidence-value">89%</span>
+              </div>
+              <div class="flag-actions">
+                  <button>View Timestamps</button>
+                  <button>False Positive</button>
+              </div>
+              <a href="#" class="flag-link">View Evidence</a>
+          </div>
+          
+          <div class="flag-card not-detected">
+              <div class="flag-header">
+                  <div class="flag-title">
+                      <svg class="flag-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                      Audio/Video Sync Issues
+                  </div>
+                  <span class="flag-status status-clean">NOT DETECTED</span>
+              </div>
+              <div class="flag-description">
+                  No significant audio/video synchronization issues were detected in the interview. Lip movements aligned properly with speech.
+              </div>
+              <div class="flag-confidence">
+                  <span class="confidence-label">Confidence:</span>
+                  <span class="confidence-value">98%</span>
+              </div>
+              <div class="flag-actions">
+                  <button>Re-analyze</button>
+                  <button>Flag Issue</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="action-buttons">
+      <button class="btn btn-secondary">Download Report</button>
+      <button class="btn btn-primary">Schedule Next Steps</button>
+      <button class="btn btn-accent">Send Feedback</button>
+  </div>
+</div>

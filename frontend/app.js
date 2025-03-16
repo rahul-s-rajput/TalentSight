@@ -703,3 +703,124 @@ function initJobPresets() {
   }
 }
 
+
+document.addEventListener('DOMContentLoaded', function() {
+  // The dynamic data you provided
+  const data = {
+      "STAR_Method_Scores": {
+          "Situation": "7.9/10",
+          "Task": "9.5/10",
+          "Action": "10/10",
+          "Result": "9.4/10",
+          "Average": "9.2/10"
+      },
+      "Three_Cs_Scores": {
+          "Credibility": "3.8/10",
+          "Competence": "7.1/10",
+          "Confidence": "7.7/10",
+          "Average": "6.2/10"
+      },
+      "Overall_Score": "7.7/10",
+      "Feedback": {
+          "Overall_Evaluation_Score": "7.7/10",
+          "STAR_Method_Analysis": {
+              "Strengths": [
+                  "The candidate demonstrated good Situation, Task, Action, Result.",
+                  "They provided clear context and background for their examples.",
+                  "They effectively communicated goals and responsibilities.",
+                  "They detailed specific actions and strategies they implemented.",
+                  "They effectively quantified outcomes and highlighted achievements."
+              ]
+          },
+          "Three_Cs_Analysis": {
+              "Strengths": [
+                  "The candidate showed strong Competence, Confidence.",
+                  "They demonstrated strong skills and technical knowledge.",
+                  "They communicated with conviction and certainty."
+              ],
+              "Areas_for_Improvement": [
+                  "The candidate could strengthen their Credibility.",
+                  "They should provide more specific evidence of their experience and achievements."
+              ]
+          },
+          "Summary": [
+              "This candidate effectively communicates their experiences and skills, using structured responses with clear examples.",
+              "They demonstrate significant alignment with the job requirements and show strong potential in the key areas evaluated."
+          ]
+      }
+  };
+
+  // Set overall score
+  // document.getElementById('overall-score').textContent = data.Overall_Score.split('/')[0];
+
+  // Function to update score bar and text
+  function updateScore(scoreType, category, scoreData) {
+      const scoreValue = parseFloat(scoreData.split('/')[0]);
+      const scoreId = `${category.toLowerCase()}-score`;
+      const barId = `${category.toLowerCase()}-bar`;
+      
+      // Update score text
+      // document.getElementById(scoreId).textContent = scoreData;
+
+                const element = document.getElementById(scoreId);
+if (element) {
+    element.textContent = scoreData;
+} else {
+    console.error(`Element with ID '${scoreId}' not found`);
+}
+      
+      // Update score bar
+      const barElement = document.getElementById(barId);
+      barElement.style.width = (scoreValue * 10) + '%';
+      
+      // Set color based on score
+      if (scoreValue >= 7) {
+          barElement.style.backgroundColor = '#4caf50'; // Green
+      } else if (scoreValue >= 5) {
+          barElement.style.backgroundColor = '#ff9800'; // Orange
+      } else {
+          barElement.style.backgroundColor = '#f44336'; // Red
+      }
+  }
+
+  // Update STAR Method scores
+  updateScore('STAR', 'situation', data.STAR_Method_Scores.Situation);
+  updateScore('STAR', 'task', data.STAR_Method_Scores.Task);
+  updateScore('STAR', 'action', data.STAR_Method_Scores.Action);
+  updateScore('STAR', 'result', data.STAR_Method_Scores.Result);
+  document.getElementById('star-average').textContent = data.STAR_Method_Scores.Average;
+
+  // Update Three Cs scores
+  updateScore('ThreeCs', 'credibility', data.Three_Cs_Scores.Credibility);
+  updateScore('ThreeCs', 'competence', data.Three_Cs_Scores.Competence);
+  updateScore('ThreeCs', 'confidence', data.Three_Cs_Scores.Confidence);
+  document.getElementById('three-cs-average').textContent = data.Three_Cs_Scores.Average;
+
+  // Set feedback content
+  function populateList(elementId, items) {
+    console.log('est')
+      if(elementId === "star-strengths") {
+        console.log(elementId, items)
+      }
+      const list = document.getElementById(elementId);
+      list.innerHTML = '';
+      items.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          list.appendChild(li);
+      });
+  }
+
+  populateList('star-strengths', data.Feedback.STAR_Method_Analysis.Strengths);
+  populateList('three-cs-strengths', data.Feedback.Three_Cs_Analysis.Strengths);
+  populateList('three-cs-improvements', data.Feedback.Three_Cs_Analysis.Areas_for_Improvement);
+
+  // Set summary
+  const summaryEl = document.getElementById('summary');
+  summaryEl.innerHTML = '';
+  data.Feedback.Summary.forEach(paragraph => {
+      const p = document.createElement('p');
+      p.textContent = paragraph;
+      summaryEl.appendChild(p);
+  });
+});
