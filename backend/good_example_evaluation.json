@@ -1,29 +1,13 @@
 {
-  "STAR_Method_Scores": {
-    "Situation": null,
-    "Task": null,
-    "Action": null,
-    "Result": null,
-    "Average": null
-  },
-  "Three_Cs_Scores": {
-    "Credibility": null,
-    "Competence": null,
-    "Confidence": null,
-    "Average": null
-  },
-  "Overall_Score": null,
-  "Feedback": {
-    "Overall_Evaluation_Score": null,
-    "STAR_Method_Analysis": {
-      "Strengths": [],
-      "Areas_for_Improvement": []
-    },
-    "Three_Cs_Analysis": {
-      "Strengths": [],
-      "Areas_for_Improvement": []
-    },
-    "Summary": []
-  },
-  "raw_response": "{\n  \"STAR_Method_Scores\": {\n    \"Situation\": null,\n    \"Task\": null,\n    \"Action\": null,\n    \"Result\": null,\n    \"Average\": null\n  },\n  \"Three_Cs_Scores\": {\n    \"Credibility\": null,\n    \"Competence\": null,\n    \"Confidence\": null,\n    \"Average\": null\n  },\n  \"Overall_Score\": null,\n  \"Feedback\": {\n    \"Overall_Evaluation_Score\": null,\n    \"STAR_Method_Analysis\": {\n      \"Strengths\": [],\n      \"Areas_for_Improvement\": []\n    },\n    \"Three_Cs_Analysis\": {\n      \"Strengths\": [],\n      \"Areas_for_Improvement\": []\n    },\n    \"Summary\": []\n  }\n}"
+  "Situation": 6,
+  "Task": 7,
+  "Action": 6,
+  "Result": 8,
+  "Average": 6.3,
+  "Credibility": 7,
+  "Competence": 6,
+  "Confidence": 6,
+  "Overall_Score": 6.45,
+  "Overall_Evaluation_Score": 6.45,
+  "raw_response": "{\n  \"STAR_Method_Scores\": {\n    \"Situation\": 6/10,\n    \"Task\": 7/10,\n    \"Action\": 6/10,\n    \"Result\": 8/10,\n    \"Average\": 6.6/10\n  },\n  \"Three_Cs_Scores\": {\n    \"Credibility\": 7/10,\n    \"Competence\": 6/10,\n    \"Confidence\": 6/10,\n    \"Average\": 6.3/10\n  },\n  \"Overall_Score\": 6.45/10,\n  \"Feedback\": {\n    \"Overall_Evaluation_Score\": 6.45/10,\n    \"STAR_Method_Analysis\": {\n      \"Strengths\": [\n        \"Candidate provided some relevant information about their previous experience, but their response was vague and lacked details. They could have provided more specific examples from their work. The situation described was somewhat vague, and they did not fully explain the task given or the actions taken.\",\n      \"Areas_for_Improvement\": [\n        \"The candidate could have provided a more detailed explanation of the data analysis, the methods and tools used, and the results obtained. They could also have provided more information on their approach to the project and their experience working with cross-functional teams.\"\n      ]\n    },\n    \"Three_Cs_Analysis\": {\n      \"Strengths\": [\n        \"The candidate demonstrated some knowledge of statistical analysis and data visualization tools, but they did not fully demonstrate their competence in these areas. They showed some confidence in their work, but their answers were not always clear or concise.\",\n      \"Areas_for_Improvement\": [\n        \"The candidate could have provided more information on their experience with large and complex data sets, and how they developed and implemented data quality protocols. They could have also elaborated more on their experience working with cross-functional teams and how they collaborated with others to support data-driven decisions.\"\n      ]\n    },\n    \"Summary\": [\n      \"The candidate appears to be a junior data analyst with some experience, but their answers were not always clear or convincing. They demonstrated some knowledge of data analysis, but their response was vague and lacked details. They could have provided more specific examples from their work, and elaborated more on their approach to the project and their experience working with cross-functional teams.\"\n    }\n  }\n}"
 }

@@ -216,7 +216,7 @@ def extract_responses(transcript):
     in_candidate_response = False  # Flag to track if we're in a candidate response
     
     logging.debug("Starting to extract responses from transcript of length: %d", len(transcript))
-    logging.debug("First 100 chars of transcript: %s", transcript[:100] if len(transcript) > 100 else transcript)
+    logging.debug("First 300 chars of transcript: %s", transcript[:300] if len(transcript) > 300 else transcript)
     
     # Define more patterns for identifying speakers
     interviewer_patterns = [

@@ -1,0 +1,25 @@
+Found 1 responses:
+
+Response 1:
+Interviewer: Can you tell me about a time when you had to analyze a complex data set?
+
+Speaker 2: Interviewee: Yeah, sure.
+
+Speaker 2: Interviewee: So, my previous company, [ORG], I was faced with a challenging project analyzing customer churn data spanning over three years with over 50 variables and 200,000 records overall.
+
+Speaker 2: Interviewee: particularly difficult for me to work with. My responsibility was to identify the key factors for driving the customer attrition and develop an actionable recommendation to reduce it.
+
+Speaker 2: Interviewee: I approached this problem methodically and by first cleaning the data using [ORG] and [PERSON] and I am using the computation technique for the missing values by filling up with mean values and mean and mode values.
+
+Speaker 2: Interviewee: I then conducted an exploratory data analysis, [ORG] using the visualization tools like [PERSON] and [ORG]. First, I tried with R, then I tried with [ORG], I tried with [PERSON], [ORG], and [ORG].
+
+Speaker 2: Interviewee: Applied statistical methods including correlation analysis and [PERSON] test followed by machine a logistical regression and random forest to build a predator model that you know evaluates my my research.
+
+Speaker 2: Interviewee: So, this analysis revealed three primary factors accounting for approximately 70 percent of the of our churn. The service outage price increase and the lack of customer engagement these findings I developed a targeted retention program that reduced the churn by 23%, which was quite significant in the following quarter.
+
+Speaker 2: Interviewee: And that translated to approximately 1.2 millions in saved annual record and revenue.
+
+Speaker 2: Interviewee: So, yeah, that was my one of the toughest thing and I came out good overall in terms of result.
+
+Speaker 2: Interviewee: And I'm not sure.
+

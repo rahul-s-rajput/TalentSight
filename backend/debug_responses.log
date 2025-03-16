@@ -6,3 +6,45 @@
 2025-03-16 12:02:14,555 - http://localhost:3001 "GET /api/v1/auth HTTP/1.1" 200 22
 2025-03-16 12:02:14,558 - Starting new HTTP connection (1): localhost:3001
 2025-03-16 12:02:43,116 - http://localhost:3001 "POST /api/v1/workspace/talentsight/chat HTTP/1.1" 200 875
+2025-03-16 12:08:52,750 - Starting to extract responses from transcript of length: 1870
+2025-03-16 12:08:52,752 - First 100 chars of transcript: Interviewer: Can you tell me about a time when you had to analyze a complex data set?
+
+Speaker 2: In
+2025-03-16 12:08:52,752 - Sample lines for pattern detection: ['Interviewer: Can you tell me about a time when you had to analyze a complex data set?', 'Speaker 2: Interviewee: Yeah, sure.', 'Speaker 2: Interviewee: So, my previous company, the Data Tech Solution, I was faced with a challenging project analyzing customer churn data spanning over three years with over 50 variables and 200,000 records overall.', 'Speaker 2: Interviewee: particularly difficult for me to work with. My responsibility was to identify the key factors for driving the customer attrition and develop an actionable recommendation to reduce it.', 'Speaker 2: Interviewee: I approached this problem methodically and by first cleaning the data using Python and Pardas and I am using the computation technique for the missing values by filling up with mean values and mean and mode values.']
+2025-03-16 12:08:52,752 - Processing line: Interviewer: Can you tell me about a time when you
+2025-03-16 12:08:52,752 - Found interviewer line
+2025-03-16 12:08:52,752 - Processing line: Speaker 2: Interviewee: Yeah, sure.
+2025-03-16 12:08:52,752 - Processing line: Speaker 2: Interviewee: So, my previous company, t
+2025-03-16 12:08:52,752 - Processing line: Speaker 2: Interviewee: particularly difficult for
+2025-03-16 12:08:52,752 - Processing line: Speaker 2: Interviewee: I approached this problem 
+2025-03-16 12:08:52,754 - Processing line: Speaker 2: Interviewee: I then conducted an explor
+2025-03-16 12:08:52,754 - Processing line: Speaker 2: Interviewee: Applied statistical method
+2025-03-16 12:08:52,754 - Processing line: Speaker 2: Interviewee: So, this analysis revealed
+2025-03-16 12:08:52,754 - Processing line: Speaker 2: Interviewee: And that translated to app
+2025-03-16 12:08:52,754 - Processing line: Speaker 2: Interviewee: So, yeah, that was my one 
+2025-03-16 12:08:52,754 - Processing line: Speaker 2: Interviewee: And I'm not sure.
+2025-03-16 12:08:52,754 - No structured responses found, using entire transcript as one response
+2025-03-16 12:08:52,754 - Extracted 1 responses total
+2025-03-16 12:08:52,833 - Starting to extract responses from transcript of length: 1851
+2025-03-16 12:08:52,833 - First 100 chars of transcript: Interviewer: Can you tell me about a time when you had to analyze a complex data set?
+
+Speaker 2: In
+2025-03-16 12:08:52,833 - Sample lines for pattern detection: ['Interviewer: Can you tell me about a time when you had to analyze a complex data set?', 'Speaker 2: Interviewee: Yeah, sure.', 'Speaker 2: Interviewee: So, my previous company, [ORG], I was faced with a challenging project analyzing customer churn data spanning over three years with over 50 variables and 200,000 records overall.', 'Speaker 2: Interviewee: particularly difficult for me to work with. My responsibility was to identify the key factors for driving the customer attrition and develop an actionable recommendation to reduce it.', 'Speaker 2: Interviewee: I approached this problem methodically and by first cleaning the data using [ORG] and [PERSON] and I am using the computation technique for the missing values by filling up with mean values and mean and mode values.']
+2025-03-16 12:08:52,833 - Processing line: Interviewer: Can you tell me about a time when you
+2025-03-16 12:08:52,833 - Found interviewer line
+2025-03-16 12:08:52,833 - Processing line: Speaker 2: Interviewee: Yeah, sure.
+2025-03-16 12:08:52,833 - Processing line: Speaker 2: Interviewee: So, my previous company, [
+2025-03-16 12:08:52,833 - Processing line: Speaker 2: Interviewee: particularly difficult for
+2025-03-16 12:08:52,833 - Processing line: Speaker 2: Interviewee: I approached this problem 
+2025-03-16 12:08:52,833 - Processing line: Speaker 2: Interviewee: I then conducted an explor
+2025-03-16 12:08:52,833 - Processing line: Speaker 2: Interviewee: Applied statistical method
+2025-03-16 12:08:52,833 - Processing line: Speaker 2: Interviewee: So, this analysis revealed
+2025-03-16 12:08:52,833 - Processing line: Speaker 2: Interviewee: And that translated to app
+2025-03-16 12:08:52,833 - Processing line: Speaker 2: Interviewee: So, yeah, that was my one 
+2025-03-16 12:08:52,833 - Processing line: Speaker 2: Interviewee: And I'm not sure.
+2025-03-16 12:08:52,833 - No structured responses found, using entire transcript as one response
+2025-03-16 12:08:52,833 - Extracted 1 responses total
+2025-03-16 12:08:52,840 - Starting new HTTP connection (1): localhost:3001
+2025-03-16 12:08:54,884 - http://localhost:3001 "GET /api/v1/auth HTTP/1.1" 200 22
+2025-03-16 12:08:54,887 - Starting new HTTP connection (1): localhost:3001
+2025-03-16 12:10:07,946 - http://localhost:3001 "POST /api/v1/workspace/talentsight/chat HTTP/1.1" 200 2542

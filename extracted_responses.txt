@@ -1,0 +1,5 @@
+Found 1 responses:
+
+Response 1:
+Speaker 2: Error: Authentication failed. Check your API key and server URL.
+
