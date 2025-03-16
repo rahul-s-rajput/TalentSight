@@ -97,11 +97,6 @@ job description, the report of candidate analysis will be ready.
 - **STAR evaluation**
 
 ## Prerequisites
-Ensure you have the following installed:
-- [Node.js](https://nodejs.org/) (latest LTS recommended)
-- [Electron](https://www.electronjs.org/)
-
-## Prerequisites
 
 Ensure you have the following installed:
 
@@ -120,16 +115,54 @@ npm install
 
 Create a virtual environment for Python 3.10:
 
-```sh
+
+### Setup
+
+Install and setup [AnythingLLM](https://anythingllm.com/).
+    1. Choose Qualcomm QNN when prompted to choose an LLM provider to target the NPU
+    2. Choose a model of your choice when prompted. This sample uses Llama 3.1 8B Chat with 8K context
+
+Create a workspace by clicking "+ New Workspace"
+
+Generate an API key
+    1. Click the settings button on the bottom of the left panel
+    2. Open the "Tools" dropdown
+    3. Click "Developer API"
+    4. Click "Generate New API Key"
+
+Open a PowerShell instance and clone the repo
+    ```
+    git clone https://github.com/thatrandomfrenchdude/simple_npu_chatbot.git
+    ```
+
+Create and activate your virtual environment with reqs
+    ```
+    # 1. navigate to the cloned directory
+    cd simple-npu-chatbot
+
+    # 2. create the python virtual environment
+    python -m venv llm-venv
+
+    # 3. activate the virtual environment
+    ./llm-venv/Scripts/Activate.ps1     # windows
+    source \llm-venv\bin\activate       # mac/linux
+
+    # 4. install the requirements
+    pip install -r requirements.txt
+    ```
+
+Create your `config.yaml` file with the following variables
+    ```
+    api_key: "your-key-here"
+    model_server_base_url: "http://localhost:3001/api/v1"
+    workspace_slug: "your-slug-here"
+    ```
+
+```
 python3.10 -m venv venv
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 ```
 
-Install required Python packages:
-
-```sh
-pip install -r requirements.txt
-```
 
 ## Usage
 
