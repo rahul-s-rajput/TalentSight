@@ -196,3 +196,8 @@ Melika Zandi
 Jalal Mansoori
 Ronald Mundell
 Lawrence Dass
+
+### References:
+https://www.hci.org/blog/statistics-rethink-your-candidate-experience-or-ruin-your-brand
+https://standout-cv.com/stats/candidate-experience-statistics
+https://www.wecreateproblems.com/blog/recruitment-statistics
