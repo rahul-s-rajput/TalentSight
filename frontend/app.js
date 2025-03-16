@@ -202,8 +202,8 @@ function initCandidateAnalysis() {
         // Store results in session storage for results page
         sessionStorage.setItem('analysisResults', JSON.stringify(results));
         
-        // Navigate to results page
-        loadPage('analysis-results');
+        // Navigate to reports page instead of analysis-results
+        loadPage('reports');
       })
       .catch(error => {
         console.error('Error during analysis:', error);

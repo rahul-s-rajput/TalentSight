@@ -18,3 +18,63 @@
 2025-03-16 12:19:26,272 - http://localhost:3001 "GET /api/v1/auth HTTP/1.1" 200 22
 2025-03-16 12:19:26,278 - Starting new HTTP connection (1): localhost:3001
 2025-03-16 12:19:53,503 - http://localhost:3001 "POST /api/v1/workspace/talentsight/chat HTTP/1.1" 200 875
+2025-03-16 12:44:58,649 - Starting to extract responses from transcript of length: 77
+2025-03-16 12:44:58,652 - First 300 chars of transcript: Speaker 2: Error: Authentication failed. Check your API key and server URL.
+
+
+2025-03-16 12:44:58,652 - Sample lines for pattern detection: ['Speaker 2: Error: Authentication failed. Check your API key and server URL.']
+2025-03-16 12:44:58,652 - Processing line: Speaker 2: Error: Authentication failed. Check you
+2025-03-16 12:44:58,652 - No structured responses found, using entire transcript as one response
+2025-03-16 12:44:58,652 - Extracted 1 responses total
+2025-03-16 12:44:58,665 - Starting to extract responses from transcript of length: 77
+2025-03-16 12:44:58,665 - First 300 chars of transcript: Speaker 2: Error: Authentication failed. Check your API key and server URL.
+
+
+2025-03-16 12:44:58,667 - Sample lines for pattern detection: ['Speaker 2: Error: Authentication failed. Check your API key and server URL.']
+2025-03-16 12:44:58,667 - Processing line: Speaker 2: Error: Authentication failed. Check you
+2025-03-16 12:44:58,667 - No structured responses found, using entire transcript as one response
+2025-03-16 12:44:58,667 - Extracted 1 responses total
+2025-03-16 12:44:58,669 - Starting new HTTP connection (1): localhost:3001
+2025-03-16 12:45:00,690 - http://localhost:3001 "GET /api/v1/auth HTTP/1.1" 200 22
+2025-03-16 12:45:00,693 - Starting new HTTP connection (1): localhost:3001
+2025-03-16 12:45:27,287 - http://localhost:3001 "POST /api/v1/workspace/talentsight/chat HTTP/1.1" 200 875
+2025-03-16 12:53:48,220 - Starting to extract responses from transcript of length: 77
+2025-03-16 12:53:48,220 - First 300 chars of transcript: Speaker 2: Error: Authentication failed. Check your API key and server URL.
+
+
+2025-03-16 12:53:48,220 - Sample lines for pattern detection: ['Speaker 2: Error: Authentication failed. Check your API key and server URL.']
+2025-03-16 12:53:48,220 - Processing line: Speaker 2: Error: Authentication failed. Check you
+2025-03-16 12:53:48,223 - No structured responses found, using entire transcript as one response
+2025-03-16 12:53:48,223 - Extracted 1 responses total
+2025-03-16 12:53:48,235 - Starting to extract responses from transcript of length: 77
+2025-03-16 12:53:48,235 - First 300 chars of transcript: Speaker 2: Error: Authentication failed. Check your API key and server URL.
+
+
+2025-03-16 12:53:48,235 - Sample lines for pattern detection: ['Speaker 2: Error: Authentication failed. Check your API key and server URL.']
+2025-03-16 12:53:48,235 - Processing line: Speaker 2: Error: Authentication failed. Check you
+2025-03-16 12:53:48,235 - No structured responses found, using entire transcript as one response
+2025-03-16 12:53:48,235 - Extracted 1 responses total
+2025-03-16 12:53:48,240 - Starting new HTTP connection (1): localhost:3001
+2025-03-16 12:53:50,271 - http://localhost:3001 "GET /api/v1/auth HTTP/1.1" 200 22
+2025-03-16 12:53:50,273 - Starting new HTTP connection (1): localhost:3001
+2025-03-16 12:54:16,867 - http://localhost:3001 "POST /api/v1/workspace/talentsight/chat HTTP/1.1" 200 875
+2025-03-16 12:59:41,214 - Starting to extract responses from transcript of length: 77
+2025-03-16 12:59:41,214 - First 300 chars of transcript: Speaker 2: Error: Authentication failed. Check your API key and server URL.
+
+
+2025-03-16 12:59:41,214 - Sample lines for pattern detection: ['Speaker 2: Error: Authentication failed. Check your API key and server URL.']
+2025-03-16 12:59:41,214 - Processing line: Speaker 2: Error: Authentication failed. Check you
+2025-03-16 12:59:41,216 - No structured responses found, using entire transcript as one response
+2025-03-16 12:59:41,216 - Extracted 1 responses total
+2025-03-16 12:59:41,228 - Starting to extract responses from transcript of length: 77
+2025-03-16 12:59:41,230 - First 300 chars of transcript: Speaker 2: Error: Authentication failed. Check your API key and server URL.
+
+
+2025-03-16 12:59:41,230 - Sample lines for pattern detection: ['Speaker 2: Error: Authentication failed. Check your API key and server URL.']
+2025-03-16 12:59:41,230 - Processing line: Speaker 2: Error: Authentication failed. Check you
+2025-03-16 12:59:41,230 - No structured responses found, using entire transcript as one response
+2025-03-16 12:59:41,230 - Extracted 1 responses total
+2025-03-16 12:59:41,233 - Starting new HTTP connection (1): localhost:3001
+2025-03-16 12:59:43,271 - http://localhost:3001 "GET /api/v1/auth HTTP/1.1" 200 22
+2025-03-16 12:59:43,273 - Starting new HTTP connection (1): localhost:3001
+2025-03-16 13:00:10,083 - http://localhost:3001 "POST /api/v1/workspace/talentsight/chat HTTP/1.1" 200 875

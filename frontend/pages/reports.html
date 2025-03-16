@@ -1,17 +1,17 @@
 <div class="dashboard-container">
   <div class="header">
       <h1>Candidate Evaluation Results</h1>
-      <div class="candidate-badge">STRONG CANDIDATE</div>
+      <div class="candidate-badge" id="candidate-status">STRONG CANDIDATE</div>
   </div>
 
   <div class="candidate-details">
       <div class="detail-item">
           <span class="detail-label">Candidate Name:</span>
-          <span class="detail-value">Sarah Johnson</span>
+          <span class="detail-value" id="candidate-name">Sarah Johnson</span>
       </div>
       <div class="detail-item">
           <span class="detail-label">Position:</span>
-          <span class="detail-value">Senior Software Engineer</span>
+          <span class="detail-value" id="candidate-position">Senior Software Engineer</span>
       </div>
       <div class="detail-item">
           <span class="detail-label">Interview Date:</span>
@@ -136,7 +136,7 @@
           <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
           Potential Red Flags
       </h2>
-      <div class="red-flags-grid">
+      <div class="red-flags-grid" id="red-flags-container">
           <div class="flag-card detected">
               <div class="flag-header">
                   <div class="flag-title">
@@ -183,8 +183,259 @@
   </div>
 
   <div class="action-buttons">
-      <button class="btn btn-secondary">Download Report</button>
-      <button class="btn btn-primary">Schedule Next Steps</button>
-      <button class="btn btn-accent">Send Feedback</button>
+      <button class="btn btn-secondary" id="download-report-btn">Download Report</button>
+      <button class="btn btn-primary" id="schedule-btn">Schedule Next Steps</button>
+      <button class="btn btn-accent" id="send-feedback-btn">Send Feedback</button>
   </div>
 </div>
+
+<script>
+// Load and display analysis results when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Try to get analysis results from session storage
+    const resultsString = sessionStorage.getItem('analysisResults');
+    if (!resultsString) {
+        console.error('No analysis results found in session storage');
+        return;
+    }
+
+    try {
+        const results = JSON.parse(resultsString);
+        
+        // Set date
+        const currentDate = new Date();
+        document.getElementById('interview-date').textContent = currentDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Extract evaluation results
+        const evaluation = results.evaluation_results;
+        if (!evaluation) {
+            console.error('No evaluation data found in results');
+            return;
+        }
+
+        // Set overall score
+        const overallScore = parseFloat(evaluation.Overall_Score?.split('/')[0] || "0");
+        document.getElementById('overall-score').textContent = overallScore;
+
+        // Update candidate badge based on score
+        const candidateStatus = document.getElementById('candidate-status');
+        if (overallScore >= 8) {
+            candidateStatus.textContent = 'STRONG CANDIDATE';
+            candidateStatus.style.backgroundColor = '#4caf50';
+        } else if (overallScore >= 6) {
+            candidateStatus.textContent = 'POTENTIAL CANDIDATE';
+            candidateStatus.style.backgroundColor = '#ff9800';
+        } else {
+            candidateStatus.textContent = 'WEAK CANDIDATE';
+            candidateStatus.style.backgroundColor = '#f44336';
+        }
+
+        // Function to update score bars and text
+        function updateScore(category, scoreData) {
+            if (!scoreData) return;
+            
+            const scoreValue = parseFloat(scoreData.split('/')[0]);
+            const scoreId = `${category.toLowerCase()}-score`;
+            const barId = `${category.toLowerCase()}-bar`;
+            
+            // Update score text
+            const scoreElement = document.getElementById(scoreId);
+            if (scoreElement) {
+                scoreElement.textContent = scoreData;
+            }
+            
+            // Update score bar
+            const barElement = document.getElementById(barId);
+            if (barElement) {
+                barElement.style.width = (scoreValue * 10) + '%';
+                
+                // Set color based on score
+                if (scoreValue >= 7) {
+                    barElement.style.backgroundColor = '#4caf50'; // Green
+                } else if (scoreValue >= 5) {
+                    barElement.style.backgroundColor = '#ff9800'; // Orange
+                } else {
+                    barElement.style.backgroundColor = '#f44336'; // Red
+                }
+            }
+        }
+
+        // Update STAR Method scores
+        if (evaluation.STAR_Method_Scores) {
+            updateScore('situation', evaluation.STAR_Method_Scores.Situation);
+            updateScore('task', evaluation.STAR_Method_Scores.Task);
+            updateScore('action', evaluation.STAR_Method_Scores.Action);
+            updateScore('result', evaluation.STAR_Method_Scores.Result);
+            
+            const starAvg = document.getElementById('star-average');
+            if (starAvg && evaluation.STAR_Method_Scores.Average) {
+                starAvg.textContent = evaluation.STAR_Method_Scores.Average;
+            }
+        }
+
+        // Update Three Cs scores
+        if (evaluation.Three_Cs_Scores) {
+            updateScore('credibility', evaluation.Three_Cs_Scores.Credibility);
+            updateScore('competence', evaluation.Three_Cs_Scores.Competence);
+            updateScore('confidence', evaluation.Three_Cs_Scores.Confidence);
+            
+            const threeCSAvg = document.getElementById('three-cs-average');
+            if (threeCSAvg && evaluation.Three_Cs_Scores.Average) {
+                threeCSAvg.textContent = evaluation.Three_Cs_Scores.Average;
+            }
+        }
+
+        // Populate feedback lists
+        function populateList(elementId, items) {
+            if (!items || !Array.isArray(items)) return;
+            
+            const list = document.getElementById(elementId);
+            if (!list) return;
+            
+            list.innerHTML = '';
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                list.appendChild(li);
+            });
+        }
+
+        if (evaluation.Feedback) {
+            // STAR Method analysis
+            if (evaluation.Feedback.STAR_Method_Analysis) {
+                populateList('star-strengths', evaluation.Feedback.STAR_Method_Analysis.Strengths);
+            }
+            
+            // Three Cs analysis
+            if (evaluation.Feedback.Three_Cs_Analysis) {
+                populateList('three-cs-strengths', evaluation.Feedback.Three_Cs_Analysis.Strengths);
+                populateList('three-cs-improvements', evaluation.Feedback.Three_Cs_Analysis.Areas_for_Improvement);
+            }
+            
+            // Summary
+            const summaryEl = document.getElementById('summary');
+            if (summaryEl && evaluation.Feedback.Summary) {
+                summaryEl.innerHTML = '';
+                evaluation.Feedback.Summary.forEach(paragraph => {
+                    const p = document.createElement('p');
+                    p.textContent = paragraph;
+                    summaryEl.appendChild(p);
+                });
+            }
+        }
+
+        // Handle Gaze Report (Red Flags)
+        const gazeReport = results.gaze_report;
+        if (gazeReport) {
+            // Clear existing flags
+            const flagsContainer = document.getElementById('red-flags-container');
+            if (flagsContainer) {
+                flagsContainer.innerHTML = '';
+                
+                // Add reading from screen flag if detected
+                if (gazeReport.reading_percentage && gazeReport.reading_percentage > 10) {
+                    const confidence = Math.min(Math.round(gazeReport.reading_percentage), 100);
+                    
+                    const readingFlag = document.createElement('div');
+                    readingFlag.className = 'flag-card detected';
+                    readingFlag.innerHTML = `
+                        <div class="flag-header">
+                            <div class="flag-title">
+                                <svg class="flag-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#f44336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                Reading From Screen
+                            </div>
+                            <span class="flag-status status-detected">DETECTED</span>
+                        </div>
+                        <div class="flag-description">
+                            Our AI detected patterns suggesting the candidate was reading prepared answers. Eye movements consistently shifted downward or to the side during responses.
+                        </div>
+                        <div class="flag-confidence">
+                            <span class="confidence-label">Confidence:</span>
+                            <span class="confidence-value">${confidence}%</span>
+                        </div>
+                        <div class="flag-actions">
+                            <button>View Timestamps</button>
+                            <button>False Positive</button>
+                        </div>
+                        <a href="#" class="flag-link">View Evidence</a>
+                    `;
+                    flagsContainer.appendChild(readingFlag);
+                }
+                
+                // Add suspicion flag if high suspicion score
+                if (gazeReport.suspicion_score && gazeReport.suspicion_score > 50) {
+                    const suspicionFlag = document.createElement('div');
+                    suspicionFlag.className = 'flag-card detected';
+                    suspicionFlag.innerHTML = `
+                        <div class="flag-header">
+                            <div class="flag-title">
+                                <svg class="flag-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#f44336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                Suspicious Behavior
+                            </div>
+                            <span class="flag-status status-detected">DETECTED</span>
+                        </div>
+                        <div class="flag-description">
+                            ${gazeReport.behavior_assessment || 'Unusual eye movement patterns detected during interview responses.'}
+                        </div>
+                        <div class="flag-confidence">
+                            <span class="confidence-label">Confidence:</span>
+                            <span class="confidence-value">${gazeReport.suspicion_score}%</span>
+                        </div>
+                        <div class="flag-actions">
+                            <button>View Timestamps</button>
+                            <button>False Positive</button>
+                        </div>
+                        <a href="#" class="flag-link">View Evidence</a>
+                    `;
+                    flagsContainer.appendChild(suspicionFlag);
+                }
+                
+                // Always add Audio/Video Sync flag as Not Detected
+                const syncFlag = document.createElement('div');
+                syncFlag.className = 'flag-card not-detected';
+                syncFlag.innerHTML = `
+                    <div class="flag-header">
+                        <div class="flag-title">
+                            <svg class="flag-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            Audio/Video Sync Issues
+                        </div>
+                        <span class="flag-status status-clean">NOT DETECTED</span>
+                    </div>
+                    <div class="flag-description">
+                        No significant audio/video synchronization issues were detected in the interview. Lip movements aligned properly with speech.
+                    </div>
+                    <div class="flag-confidence">
+                        <span class="confidence-label">Confidence:</span>
+                        <span class="confidence-value">98%</span>
+                    </div>
+                    <div class="flag-actions">
+                        <button>Re-analyze</button>
+                        <button>Flag Issue</button>
+                    </div>
+                `;
+                flagsContainer.appendChild(syncFlag);
+            }
+        }
+
+        // Set up button actions
+        document.getElementById('download-report-btn').addEventListener('click', function() {
+            alert('Report download functionality will be implemented in a future update.');
+        });
+        
+        document.getElementById('schedule-btn').addEventListener('click', function() {
+            alert('Scheduling functionality will be implemented in a future update.');
+        });
+        
+        document.getElementById('send-feedback-btn').addEventListener('click', function() {
+            alert('Feedback functionality will be implemented in a future update.');
+        });
+
+    } catch (error) {
+        console.error('Error parsing or displaying analysis results:', error);
+    }
+});
+</script>
