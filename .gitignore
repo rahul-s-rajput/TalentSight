@@ -1,0 +1,13 @@
+dist/
+node_modules/
+backend/models--Systran--faster-whisper-large-v2
+backend/.locks
+backend/__pycache__
+backend/pretrained_models
+backend/whisper_env
+backend/whisper
+backend/jax
+backend/deploy
+backend/.ipynb_checkpoints
+backend/packages
+backend/models

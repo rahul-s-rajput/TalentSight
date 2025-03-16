@@ -1,0 +1,63 @@
+<!-- Create Job Preset Interface (Page 2) -->
+<div id="create-preset-interface" class="content-section active">
+  <header class="content-header">
+    <h2>Create New Job Preset</h2>
+    <p class="subtitle">Define skills and evaluation criteria for new job roles</p>
+  </header>
+
+  <div class="preset-form">
+    <div class="form-group">
+      <label for="preset-name">Preset Name</label>
+      <input type="text" id="preset-name" placeholder="e.g., Senior Software Engineer">
+    </div>
+
+    <div class="form-group">
+      <label for="required-skills">Required Skills</label>
+      <div class="skills-input-container">
+        <input type="text" id="skills-input" placeholder="Type to add skills...">
+        <button id="add-skill-btn" class="add-skill-button">Add</button>
+      </div>
+      <div id="skills-container" class="skills-container"></div>
+      <div id="skills-suggestions" class="skills-suggestions"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="section-label">Evaluation Criteria</label>
+      <div class="criteria-container">
+        <div class="criteria-item">
+          <input type="checkbox" id="eye-contact" checked>
+          <label for="eye-contact">Eye Contact/Gaze Detection</label>
+        </div>
+        <div class="criteria-item">
+          <input type="checkbox" id="speech-clarity" checked>
+          <label for="speech-clarity">Speech Clarity & Communication</label>
+        </div>
+        <div class="criteria-item">
+          <input type="checkbox" id="resume-match" checked>
+          <label for="resume-match">Resume Skill Match</label>
+        </div>
+        <div class="criteria-item">
+          <input type="checkbox" id="star-method" checked>
+          <label for="star-method">STAR Method Response Evaluation</label>
+        </div>
+        <div class="criteria-item">
+          <input type="checkbox" id="keyword-matching" checked>
+          <label for="keyword-matching">Keyword Matching</label>
+        </div>
+      </div>
+      <div class="custom-criteria">
+        <label for="custom-criteria">Add Custom Evaluation Criteria</label>
+        <div class="custom-criteria-input">
+          <input type="text" id="custom-criteria" placeholder="Enter custom criteria...">
+          <button id="add-criteria-btn" class="add-criteria-button">Add</button>
+        </div>
+        <div id="custom-criteria-container" class="custom-criteria-container"></div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button id="cancel-preset-btn" class="secondary-button">Cancel</button>
+      <button id="save-preset-btn" class="primary-button">Save Preset</button>
+    </div>
+  </div>
+</div> 

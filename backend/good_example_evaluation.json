@@ -1,0 +1,29 @@
+{
+  "STAR_Method_Scores": {
+    "Situation": null,
+    "Task": null,
+    "Action": null,
+    "Result": null,
+    "Average": null
+  },
+  "Three_Cs_Scores": {
+    "Credibility": null,
+    "Competence": null,
+    "Confidence": null,
+    "Average": null
+  },
+  "Overall_Score": null,
+  "Feedback": {
+    "Overall_Evaluation_Score": null,
+    "STAR_Method_Analysis": {
+      "Strengths": [],
+      "Areas_for_Improvement": []
+    },
+    "Three_Cs_Analysis": {
+      "Strengths": [],
+      "Areas_for_Improvement": []
+    },
+    "Summary": []
+  },
+  "raw_response": "{\n  \"STAR_Method_Scores\": {\n    \"Situation\": null,\n    \"Task\": null,\n    \"Action\": null,\n    \"Result\": null,\n    \"Average\": null\n  },\n  \"Three_Cs_Scores\": {\n    \"Credibility\": null,\n    \"Competence\": null,\n    \"Confidence\": null,\n    \"Average\": null\n  },\n  \"Overall_Score\": null,\n  \"Feedback\": {\n    \"Overall_Evaluation_Score\": null,\n    \"STAR_Method_Analysis\": {\n      \"Strengths\": [],\n      \"Areas_for_Improvement\": []\n    },\n    \"Three_Cs_Analysis\": {\n      \"Strengths\": [],\n      \"Areas_for_Improvement\": []\n    },\n    \"Summary\": []\n  }\n}"
+}

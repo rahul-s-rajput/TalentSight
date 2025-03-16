@@ -1,0 +1,12 @@
+=== GAZE ANALYSIS REPORT ===
+
+Total Duration: 150.20 seconds
+Suspicion Score: 0/100
+Suspicion Level: Low
+Behavior Assessment: Normal interview behavior
+Reading Duration: 0.00 seconds (0.0%)
+
+Direction Percentages:
+
+Suspicious Activities:
+  No suspicious activities detected

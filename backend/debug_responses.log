@@ -1,0 +1,8 @@
+2025-03-16 12:02:12,435 - Starting to extract responses from transcript of length: 1870
+2025-03-16 12:02:12,441 - Extracted 0 responses total
+2025-03-16 12:02:12,507 - Starting to extract responses from transcript of length: 1851
+2025-03-16 12:02:12,507 - Extracted 0 responses total
+2025-03-16 12:02:12,512 - Starting new HTTP connection (1): localhost:3001
+2025-03-16 12:02:14,555 - http://localhost:3001 "GET /api/v1/auth HTTP/1.1" 200 22
+2025-03-16 12:02:14,558 - Starting new HTTP connection (1): localhost:3001
+2025-03-16 12:02:43,116 - http://localhost:3001 "POST /api/v1/workspace/talentsight/chat HTTP/1.1" 200 875

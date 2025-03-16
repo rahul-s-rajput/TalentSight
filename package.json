@@ -1,0 +1,23 @@
+{
+  "name": "talentsight",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "echo 'no build script'",
+    "start": "electron .",
+    "packager": "electron-packager ./ TalentSight --platform=win32 --arch=x64 --out=dist --overwrite"
+  },
+  "main": "main.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^35.0.1",
+    "electron-packager": "^17.1.2"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.7",
+    "tmp": "^0.2.3"
+  }
+}
