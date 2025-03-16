@@ -75,28 +75,83 @@ function initCandidateAnalysis() {
   const loadingOverlay = document.getElementById("loading-overlay");
 
   // State
-  let videoUploaded = false;
-  let resumeUploaded = false;
-  let presetSelected = false;
+
+  let videoFile = null;
+  let resumeFile = null;
+  let selectedPresetId = "";
+
 
   // Navigation to create preset page
   createPresetBtn.addEventListener("click", () => {
     loadPage('create-preset');
   });
 
-  // File upload handling
-  setupFileUpload(videoUpload, videoInput, videoStatus, "video");
-  setupFileUpload(resumeUpload, resumeInput, resumeStatus, "resume");
+
+  // Replace or add the video selection functionality
+  const originalVideoButton = videoUpload.querySelector(".upload-button");
+  originalVideoButton.textContent = "Select Video File";
+  
+  // Replace standard file input with direct dialog call
+  originalVideoButton.addEventListener("click", async (e) => {
+    e.preventDefault();
+    
+    // Show loading state
+    videoStatus.textContent = "Selecting file...";
+    videoStatus.className = "upload-status info";
+    
+    try {
+      // Use the native dialog
+      const fileInfo = await ipcRenderer.invoke('select-video-file');
+      
+      if (fileInfo) {
+        videoFile = fileInfo;
+        // Ensure path property exists and log it for debugging
+        console.log("Selected video file:", fileInfo);
+        console.log("Video file path:", fileInfo.path);
+        
+        // Update UI to show selected file
+        videoStatus.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg> ${fileInfo.name}`;
+        videoStatus.className = "upload-status success";
+        videoUpload.classList.add("uploaded");
+        
+        updateStartButton();
+      } else {
+        // User canceled
+        videoStatus.textContent = "No file selected";
+        videoStatus.className = "upload-status";
+      }
+    } catch (error) {
+      console.error("Error selecting video:", error);
+      videoStatus.textContent = "Error selecting file";
+      videoStatus.className = "upload-status error";
+    }
+  });
+  
+  // Hide the original file input
+  videoInput.style.display = "none";
+
+  resumeInput.addEventListener("change", function() {
+    if (this.files.length) {
+      resumeFile = this.files[0];
+      handleFileUpload(resumeFile, "resume", resumeStatus, resumeUpload);
+    }
+  });
 
   // Job preset selection
-  jobPresetSelect.addEventListener("change", function () {
-    presetSelected = this.value !== "";
+  jobPresetSelect.addEventListener("change", function() {
+    selectedPresetId = this.value;
+
     updateStartButton();
   });
 
   // Update start analysis button state
   function updateStartButton() {
-    if (videoUploaded && resumeUploaded && presetSelected) {
+
+    if (videoFile && resumeFile && selectedPresetId) {
+
       startAnalysisBtn.disabled = false;
     } else {
       startAnalysisBtn.disabled = true;
@@ -105,13 +160,57 @@ function initCandidateAnalysis() {
 
   // Start analysis button
   startAnalysisBtn.addEventListener("click", () => {
-    loadingOverlay.classList.add("active");
 
-    // Simulate analysis process
-    setTimeout(() => {
-      loadingOverlay.classList.remove("active");
-      alert("Analysis completed successfully! Redirecting to results page...");
-    }, 3000);
+    if (!videoFile || !selectedPresetId) {
+      alert("Please upload a video and select a job preset");
+      return;
+    }
+
+    // Validate video file path
+    if (!videoFile.path) {
+      console.error("Video file path is undefined:", videoFile);
+      alert("Invalid video file path. Please select the video again.");
+      return;
+    }
+
+    console.log("Starting analysis with video path:", videoFile.path);
+
+    // Show loading overlay
+    loadingOverlay.classList.add("active");
+    loadingOverlay.querySelector("p").textContent = "Analyzing interview video...";
+    
+    // Get job preset details for the selected preset
+    ipcRenderer.invoke('get-job-preset-details', selectedPresetId)
+      .then(preset => {
+        // Create temp files and paths
+        return ipcRenderer.invoke('prepare-analysis', {
+          videoPath: videoFile.path,
+          resumePath: resumeFile ? resumeFile.path : null,
+          preset: preset
+        });
+      })
+      .then(config => {
+        // Log the config being sent for analysis
+        console.log("Analysis config:", config);
+        // Start the video analysis
+        return ipcRenderer.invoke('run-video-analysis', config);
+      })
+      .then(results => {
+        // Hide loading overlay
+        loadingOverlay.classList.remove("active");
+        
+        // Store results in session storage for results page
+        sessionStorage.setItem('analysisResults', JSON.stringify(results));
+        
+        // Navigate to results page
+        loadPage('analysis-results');
+      })
+      .catch(error => {
+        console.error('Error during analysis:', error);
+        loadingOverlay.classList.remove("active");
+        alert("Error analyzing video: " + error.message);
+      });
+
   });
 
   // Load job presets from database
@@ -133,6 +232,74 @@ function initCandidateAnalysis() {
         console.error('Error loading job presets:', error);
       });
   }
+
+  
+  // File upload handling
+  function handleFileUpload(file, type, statusElement, uploadArea) {
+    // Check file type
+    let isValidFile = false;
+
+    if (type === "video" && (file.type === "video/mp4" || file.type === "video/quicktime")) {
+      isValidFile = true;
+    } else if (
+      type === "resume" &&
+      (file.type === "application/pdf" ||
+        file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    ) {
+      isValidFile = true;
+    }
+
+    if (!isValidFile) {
+      statusElement.textContent = "Invalid file format";
+      statusElement.className = "upload-status error";
+      return;
+    }
+
+    // Update UI
+    statusElement.textContent = "File selected";
+    statusElement.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> ' +
+      file.name;
+    statusElement.className = "upload-status success";
+    uploadArea.classList.add("uploaded");
+
+    updateStartButton();
+  }
+
+  // File upload handling function
+  function setupFileUpload(uploadArea, fileInput, statusElement, fileType) {
+    // Drag and drop functionality
+    uploadArea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      uploadArea.classList.add("drag-over");
+    });
+
+    uploadArea.addEventListener("dragleave", () => {
+      uploadArea.classList.remove("drag-over");
+    });
+
+    uploadArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove("drag-over");
+
+      const files = e.dataTransfer.files;
+      if (files.length) {
+        fileInput.files = files; // Update the file input
+        const event = new Event('change'); // Create a change event
+        fileInput.dispatchEvent(event); // Dispatch it to trigger the change handler
+      }
+    });
+
+    // Click to upload functionality
+    uploadArea.querySelector(".upload-button").addEventListener("click", () => {
+      fileInput.click();
+    });
+  }
+
+  // IMPORTANT: Actually call the setup function for drag & drop handling
+  setupFileUpload(videoUpload, videoInput, videoStatus, "video");
+  setupFileUpload(resumeUpload, resumeInput, resumeStatus, "resume");
+
 }
 
 function initCreatePreset() {
@@ -345,90 +512,6 @@ function initCreatePreset() {
       skillsSuggestions.innerHTML = "";
     }
   });
-}
-
-// File upload handling function
-function setupFileUpload(uploadArea, fileInput, statusElement, fileType) {
-  // Drag and drop functionality
-  uploadArea.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    uploadArea.classList.add("drag-over");
-  });
-
-  uploadArea.addEventListener("dragleave", () => {
-    uploadArea.classList.remove("drag-over");
-  });
-
-  uploadArea.addEventListener("drop", (e) => {
-    e.preventDefault();
-    uploadArea.classList.remove("drag-over");
-
-    const files = e.dataTransfer.files;
-    if (files.length) {
-      handleFileUpload(files[0], fileType);
-    }
-  });
-
-  // Click to upload functionality
-  uploadArea.querySelector(".upload-button").addEventListener("click", () => {
-    fileInput.click();
-  });
-
-  fileInput.addEventListener("change", function () {
-    if (this.files.length) {
-      handleFileUpload(this.files[0], fileType);
-    }
-  });
-
-  function handleFileUpload(file, type) {
-    // Check file type
-    let isValidFile = false;
-
-    if (type === "video" && (file.type === "video/mp4" || file.type === "video/quicktime")) {
-      isValidFile = true;
-    } else if (
-      type === "resume" &&
-      (file.type === "application/pdf" ||
-        file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-    ) {
-      isValidFile = true;
-    }
-
-    if (!isValidFile) {
-      statusElement.textContent = "Invalid file format";
-      statusElement.className = "upload-status error";
-      return;
-    }
-
-    // Simulate file upload
-    statusElement.textContent = "Uploading...";
-    statusElement.className = "upload-status";
-
-    setTimeout(() => {
-      statusElement.innerHTML =
-        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> ' +
-        file.name;
-      statusElement.className = "upload-status success";
-      uploadArea.classList.add("uploaded");
-
-      if (type === "video") {
-        window.videoUploaded = true;
-      } else if (type === "resume") {
-        window.resumeUploaded = true;
-      }
-
-      updateStartButton();
-    }, 1500);
-  }
-
-  function updateStartButton() {
-    const startAnalysisBtn = document.getElementById("start-analysis-btn");
-    if (window.videoUploaded && window.resumeUploaded && window.presetSelected) {
-      startAnalysisBtn.disabled = false;
-    } else {
-      startAnalysisBtn.disabled = true;
-    }
-  }
 }
 
 function initJobPresets() {

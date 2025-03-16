@@ -1,0 +1,227 @@
+<div class="content-section active">
+  <header class="content-header">
+    <h2>Analysis Results</h2>
+    <p class="subtitle">Results of the candidate interview analysis</p>
+    <div class="header-actions">
+      <button id="back-to-upload-btn" class="secondary-button">Back to Upload</button>
+      <button id="export-report-btn" class="primary-button">Export Report</button>
+    </div>
+  </header>
+  
+  <div class="results-container">
+    <div class="results-section">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Candidate Overview</h3>
+        </div>
+        <div class="panel-content" id="candidate-overview">
+          <!-- This will be populated with candidate data -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="results-grid">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Overall Score</h3>
+        </div>
+        <div class="panel-content" id="overall-score">
+          <!-- This will show the overall score -->
+        </div>
+      </div>
+      
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Confidence Analysis</h3>
+        </div>
+        <div class="panel-content" id="confidence-analysis">
+          <!-- This will show the confidence metrics -->
+        </div>
+      </div>
+      
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Technical Skills</h3>
+        </div>
+        <div class="panel-content" id="technical-skills">
+          <!-- This will show technical skills assessment -->
+        </div>
+      </div>
+      
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Gaze Analysis</h3>
+        </div>
+        <div class="panel-content" id="gaze-analysis">
+          <!-- This will show gaze data -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="results-section">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Interview Transcript</h3>
+        </div>
+        <div class="panel-content" id="interview-transcript">
+          <!-- This will show the transcript -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="results-section">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Detailed Feedback</h3>
+        </div>
+        <div class="panel-content" id="detailed-feedback">
+          <!-- This will show detailed feedback -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // This script will run when the results page is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the analysis results from session storage
+    const resultsJson = sessionStorage.getItem('analysisResults');
+    if (!resultsJson) {
+      document.querySelector('.results-container').innerHTML = 
+        '<div class="error-message">No analysis results found. Please run an analysis first.</div>';
+      return;
+    }
+    
+    const results = JSON.parse(resultsJson);
+    
+    // Populate the results page with data
+    populateResults(results);
+    
+    // Set up button handlers
+    document.getElementById('back-to-upload-btn').addEventListener('click', function() {
+      loadPage('candidate-analysis');
+    });
+    
+    document.getElementById('export-report-btn').addEventListener('click', function() {
+      exportReport(results);
+    });
+  });
+  
+  function populateResults(results) {
+    // Populate Overall Score
+    const overallScore = document.getElementById('overall-score');
+    if (results.evaluation_results && results.evaluation_results.Overall_Score) {
+      const score = results.evaluation_results.Overall_Score;
+      overallScore.innerHTML = `
+        <div class="score-display">
+          <div class="score-circle ${getScoreClass(score)}">
+            <span>${score}/10</span>
+          </div>
+        </div>
+      `;
+    }
+    
+    // Populate Gaze Analysis
+    const gazeAnalysis = document.getElementById('gaze-analysis');
+    if (results.gaze_report) {
+      const gazeReport = results.gaze_report;
+      gazeAnalysis.innerHTML = `
+        <div class="metric-list">
+          <div class="metric-item">
+            <div class="metric-label">Suspicion Score:</div>
+            <div class="metric-value ${getSuspicionClass(gazeReport.suspicion_score)}">${gazeReport.suspicion_score}/100</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Reading Behavior:</div>
+            <div class="metric-value">${gazeReport.reading_percentage.toFixed(1)}% of interview</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Assessment:</div>
+            <div class="metric-value">${gazeReport.behavior_assessment}</div>
+          </div>
+        </div>
+      `;
+    }
+    
+    // Populate Transcript
+    const transcriptEl = document.getElementById('interview-transcript');
+    if (results.segments) {
+      let transcriptHtml = '<div class="transcript-container">';
+      results.segments.forEach(segment => {
+        const speakerClass = segment.speaker.toLowerCase().includes('interviewer') ? 'interviewer' : 'applicant';
+        transcriptHtml += `
+          <div class="transcript-entry ${speakerClass}">
+            <div class="speaker-label">${segment.speaker}</div>
+            <div class="speech-text">${segment.text}</div>
+          </div>
+        `;
+      });
+      transcriptHtml += '</div>';
+      transcriptEl.innerHTML = transcriptHtml;
+    }
+    
+    // Populate Detailed Feedback
+    const feedbackEl = document.getElementById('detailed-feedback');
+    if (results.evaluation_results && results.evaluation_results.Feedback) {
+      const feedback = results.evaluation_results.Feedback;
+      
+      let feedbackHtml = '<div class="feedback-container">';
+      
+      // Add summary points
+      if (feedback.Summary && feedback.Summary.length > 0) {
+        feedbackHtml += '<div class="feedback-section"><h4>Summary</h4><ul>';
+        feedback.Summary.forEach(point => {
+          feedbackHtml += `<li>${point}</li>`;
+        });
+        feedbackHtml += '</ul></div>';
+      }
+      
+      // Add strengths
+      if (feedback.Strengths && feedback.Strengths.length > 0) {
+        feedbackHtml += '<div class="feedback-section"><h4>Strengths</h4><ul class="strengths-list">';
+        feedback.Strengths.forEach(strength => {
+          feedbackHtml += `<li>${strength}</li>`;
+        });
+        feedbackHtml += '</ul></div>';
+      }
+      
+      // Add areas for improvement
+      if (feedback.Areas_for_Improvement && feedback.Areas_for_Improvement.length > 0) {
+        feedbackHtml += '<div class="feedback-section"><h4>Areas for Improvement</h4><ul class="improvement-list">';
+        feedback.Areas_for_Improvement.forEach(area => {
+          feedbackHtml += `<li>${area}</li>`;
+        });
+        feedbackHtml += '</ul></div>';
+      }
+      
+      feedbackHtml += '</div>';
+      feedbackEl.innerHTML = feedbackHtml;
+    }
+  }
+  
+  function getScoreClass(score) {
+    if (score >= 8) return 'excellent';
+    if (score >= 6) return 'good';
+    if (score >= 4) return 'average';
+    return 'poor';
+  }
+  
+  function getSuspicionClass(score) {
+    if (score < 30) return 'low-suspicion';
+    if (score < 60) return 'medium-suspicion';
+    return 'high-suspicion';
+  }
+  
+  function exportReport(results) {
+    // This would trigger an IPC call to create a PDF report
+    ipcRenderer.invoke('export-analysis-report', results)
+      .then(filePath => {
+        alert(`Report exported successfully to ${filePath}`);
+      })
+      .catch(error => {
+        console.error('Error exporting report:', error);
+        alert('Error exporting report: ' + error.message);
+      });
+  }
+</script> 

@@ -1112,7 +1112,9 @@ def analyze_interview_video(video_path, output_path=None):
 # Main function to demonstrate usage
 def main():
     # Path to video file
-    video_path = "C:\\Users\\rajpu\\Pictures\\Camera Roll\\WIN_20250314_19_38_03_Pro.mp4"
+
+    video_path = "WIN_20250314_19_38_03_Pro.mp4"
+
     
     # Analyze the video
     analyze_interview_video(video_path, "analyzed_interview.mp4")

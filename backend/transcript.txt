@@ -1,0 +1,13 @@
+=== TRANSCRIPTION WITH SPEAKER DIARIZATION AND GAZE INFORMATION ===
+
+[0.00s - 5.33s] Interviewer (CENTER-CENTER): Can you tell me about a time when you had to analyze a complex data set?
+[5.33s - 6.33s] Speaker 2 (CENTER-CENTER): Interviewee: Yeah, sure.
+[6.33s - 17.00s] Speaker 2 (CENTER-CENTER): Interviewee: So, my previous company, the Data Tech Solution, I was faced with a challenging project analyzing customer churn data spanning over three years with over 50 variables and 200,000 records overall.
+[17.00s - 26.67s] Speaker 2 (CENTER-CENTER): Interviewee: particularly difficult for me to work with. My responsibility was to identify the key factors for driving the customer attrition and develop an actionable recommendation to reduce it.
+[26.67s - 39.33s] Speaker 2 (CENTER-CENTER): Interviewee: I approached this problem methodically and by first cleaning the data using Python and Pardas and I am using the computation technique for the missing values by filling up with mean values and mean and mode values.
+[39.33s - 51.00s] Speaker 2 (CENTER-CENTER): Interviewee: I then conducted an exploratory data analysis, EDA using the visualization tools like Matpod Lab and C-BON. First, I tried with R, then I tried with C-BON, I tried with Wartov, Feynman, and Python.
+[51.00s - 61.33s] Speaker 2 (CENTER-CENTER): Interviewee: Applied statistical methods including correlation analysis and chi-square test followed by machine a logistical regression and random forest to build a predator model that you know evaluates my my research.
+[61.33s - 78.33s] Speaker 2 (CENTER-CENTER): Interviewee: So, this analysis revealed three primary factors accounting for approximately 70 percent of the of our churn. The service outage price increase and the lack of customer engagement these findings I developed a targeted retention program that reduced the churn by 23%, which was quite significant in the following quarter.
+[78.33s - 83.00s] Speaker 2 (CENTER-CENTER): Interviewee: And that translated to approximately 1.2 millions in saved annual record and revenue.
+[83.00s - 90.00s] Speaker 2 (CENTER-CENTER): Interviewee: So, yeah, that was my one of the toughest thing and I came out good overall in terms of result.
+[90.00s - 91.67s] Speaker 2 (CENTER-CENTER): Interviewee: And I'm not sure.
